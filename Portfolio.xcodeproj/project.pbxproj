@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		527309BA273EBC2E00C7226A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527309B9273EBC2E00C7226A /* CloudKit.framework */; };
+		527309BC273EBEB200C7226A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527309BB273EBEB200C7226A /* HomeView.swift */; };
+		527309BE273EBF7D00C7226A /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527309BD273EBF7D00C7226A /* ProjectsView.swift */; };
 		529AD66F273BD16A00BF72AB /* PortfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529AD66E273BD16A00BF72AB /* PortfolioApp.swift */; };
 		529AD671273BD16A00BF72AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529AD670273BD16A00BF72AB /* ContentView.swift */; };
 		529AD673273BD17000BF72AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 529AD672273BD17000BF72AB /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 		527309B6273EBBED00C7226A /* Portfolio.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Portfolio.entitlements; sourceTree = "<group>"; };
 		527309B7273EBBFF00C7226A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		527309B9273EBC2E00C7226A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		527309BB273EBEB200C7226A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		527309BD273EBF7D00C7226A /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		529AD66B273BD16A00BF72AB /* Portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		529AD66E273BD16A00BF72AB /* PortfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioApp.swift; sourceTree = "<group>"; };
 		529AD670273BD16A00BF72AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 				529AD66E273BD16A00BF72AB /* PortfolioApp.swift */,
 				529AD670273BD16A00BF72AB /* ContentView.swift */,
 				52F7B3EC273BDDB00017DDC7 /* DataController.swift */,
+				527309BB273EBEB200C7226A /* HomeView.swift */,
+				527309BD273EBF7D00C7226A /* ProjectsView.swift */,
 				529AD672273BD17000BF72AB /* Assets.xcassets */,
 				52F7B3E9273BDAE90017DDC7 /* Main.xcdatamodeld */,
 				529AD674273BD17000BF72AB /* Preview Content */,
@@ -159,9 +165,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				527309BE273EBF7D00C7226A /* ProjectsView.swift in Sources */,
 				52F7B3EB273BDAE90017DDC7 /* Main.xcdatamodeld in Sources */,
 				52F7B3ED273BDDB00017DDC7 /* DataController.swift in Sources */,
 				529AD671273BD16A00BF72AB /* ContentView.swift in Sources */,
+				527309BC273EBEB200C7226A /* HomeView.swift in Sources */,
 				529AD66F273BD16A00BF72AB /* PortfolioApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
