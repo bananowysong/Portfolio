@@ -7,20 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		527309BA273EBC2E00C7226A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527309B9273EBC2E00C7226A /* CloudKit.framework */; };
 		529AD66F273BD16A00BF72AB /* PortfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529AD66E273BD16A00BF72AB /* PortfolioApp.swift */; };
 		529AD671273BD16A00BF72AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529AD670273BD16A00BF72AB /* ContentView.swift */; };
 		529AD673273BD17000BF72AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 529AD672273BD17000BF72AB /* Assets.xcassets */; };
 		529AD676273BD17000BF72AB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 529AD675273BD17000BF72AB /* Preview Assets.xcassets */; };
 		52F7B3EB273BDAE90017DDC7 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52F7B3E9273BDAE90017DDC7 /* Main.xcdatamodeld */; };
+		52F7B3ED273BDDB00017DDC7 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F7B3EC273BDDB00017DDC7 /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		527309B6273EBBED00C7226A /* Portfolio.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Portfolio.entitlements; sourceTree = "<group>"; };
+		527309B7273EBBFF00C7226A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		527309B9273EBC2E00C7226A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		529AD66B273BD16A00BF72AB /* Portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		529AD66E273BD16A00BF72AB /* PortfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioApp.swift; sourceTree = "<group>"; };
 		529AD670273BD16A00BF72AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		529AD672273BD17000BF72AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		529AD675273BD17000BF72AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52F7B3EA273BDAE90017DDC7 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
+		52F7B3EC273BDDB00017DDC7 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,17 +34,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				527309BA273EBC2E00C7226A /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		527309B8273EBC2E00C7226A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				527309B9273EBC2E00C7226A /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		529AD662273BD16A00BF72AB = {
 			isa = PBXGroup;
 			children = (
 				529AD66D273BD16A00BF72AB /* Portfolio */,
 				529AD66C273BD16A00BF72AB /* Products */,
+				527309B8273EBC2E00C7226A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,8 +69,11 @@
 		529AD66D273BD16A00BF72AB /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
+				527309B7273EBBFF00C7226A /* Info.plist */,
+				527309B6273EBBED00C7226A /* Portfolio.entitlements */,
 				529AD66E273BD16A00BF72AB /* PortfolioApp.swift */,
 				529AD670273BD16A00BF72AB /* ContentView.swift */,
+				52F7B3EC273BDDB00017DDC7 /* DataController.swift */,
 				529AD672273BD17000BF72AB /* Assets.xcassets */,
 				52F7B3E9273BDAE90017DDC7 /* Main.xcdatamodeld */,
 				529AD674273BD17000BF72AB /* Preview Content */,
@@ -141,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52F7B3EB273BDAE90017DDC7 /* Main.xcdatamodeld in Sources */,
+				52F7B3ED273BDDB00017DDC7 /* DataController.swift in Sources */,
 				529AD671273BD16A00BF72AB /* ContentView.swift in Sources */,
 				529AD66F273BD16A00BF72AB /* PortfolioApp.swift in Sources */,
 			);
@@ -270,12 +290,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Portfolio/Portfolio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Portfolio/Preview Content\"";
 				DEVELOPMENT_TEAM = J9T9YB66U4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Portfolio/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -300,12 +322,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Portfolio/Portfolio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Portfolio/Preview Content\"";
 				DEVELOPMENT_TEAM = J9T9YB66U4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Portfolio/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
