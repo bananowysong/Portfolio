@@ -19,14 +19,14 @@ struct EditItemView: View {
     var body: some View {
         Form {
             Section(content: {
-                TextField("Item name", text: $title)
-                TextField("Description", text: $detail)
+                TextField("Item name", text: $title.onChange(update))
+                TextField("Description", text: $detail.onChange(update))
             }, header: {
                 Text("Basic settings")
             })
 
             Section(content: {
-                Picker("Priority", selection: $priority) {
+                Picker("Priority", selection: $priority.onChange(update)) {
                     Text("Low").tag(1)
                     Text("Medium").tag(2)
                     Text("High").tag(3)
@@ -37,10 +37,10 @@ struct EditItemView: View {
                 .pickerStyle(SegmentedPickerStyle())
 
             Section {
-                Toggle("Mark Completed", isOn: $completed)
+                Toggle("Mark Completed", isOn: $completed.onChange(update))
             }
             .navigationTitle("Edit Item")
-            .onDisappear(perform: update)
+            .onDisappear(perform: dataController.save)
         }
     }
 
