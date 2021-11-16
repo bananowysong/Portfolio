@@ -21,6 +21,7 @@
 		529AD671273BD16A00BF72AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529AD670273BD16A00BF72AB /* ContentView.swift */; };
 		529AD673273BD17000BF72AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 529AD672273BD17000BF72AB /* Assets.xcassets */; };
 		529AD676273BD17000BF72AB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 529AD675273BD17000BF72AB /* Preview Assets.xcassets */; };
+		52F731A427444B9B002C2AB3 /* EditProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F731A327444B9B002C2AB3 /* EditProjectView.swift */; };
 		52F7B3EB273BDAE90017DDC7 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52F7B3E9273BDAE90017DDC7 /* Main.xcdatamodeld */; };
 		52F7B3ED273BDDB00017DDC7 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F7B3EC273BDDB00017DDC7 /* DataController.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		529AD670273BD16A00BF72AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		529AD672273BD17000BF72AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		529AD675273BD17000BF72AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		52F731A327444B9B002C2AB3 /* EditProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectView.swift; sourceTree = "<group>"; };
 		52F7B3EA273BDAE90017DDC7 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
 		52F7B3EC273BDDB00017DDC7 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +102,7 @@
 				527309C32741251600C7226A /* EditItemView.swift */,
 				527309C72741B0E700C7226A /* Binding-OnChange.swift */,
 				527309C92741B70E00C7226A /* ProjectHeaderView.swift */,
+				52F731A327444B9B002C2AB3 /* EditProjectView.swift */,
 				527309CB2741C15C00C7226A /* Colors.xcassets */,
 				529AD672273BD17000BF72AB /* Assets.xcassets */,
 				52F7B3E9273BDAE90017DDC7 /* Main.xcdatamodeld */,
@@ -191,6 +194,7 @@
 				527309CA2741B70E00C7226A /* ProjectHeaderView.swift in Sources */,
 				527309BE273EBF7D00C7226A /* ProjectsView.swift in Sources */,
 				52F7B3EB273BDAE90017DDC7 /* Main.xcdatamodeld in Sources */,
+				52F731A427444B9B002C2AB3 /* EditProjectView.swift in Sources */,
 				527309C2273F010E00C7226A /* Project-CoreDataHelpers.swift in Sources */,
 				527309C62741601A00C7226A /* ItemRowView.swift in Sources */,
 				52F7B3ED273BDDB00017DDC7 /* DataController.swift in Sources */,
