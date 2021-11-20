@@ -13,6 +13,9 @@ struct ProjectsView: View {
     static let openTag: String? = "Open"
     static let closedTag: String? = "Closed"
 
+    @EnvironmentObject var dataController: DataController
+    @Environment(\.managedObjectContext) var moc
+
     var body: some View {
         NavigationView {
             List {
@@ -20,12 +23,52 @@ struct ProjectsView: View {
                     Section(header: ProjectHeaderView(project: project)) {
                         ForEach(project.projectItems) { item in
                             ItemRowView(item: item)
+                        }
+                        .onDelete { offsets in
+                            let allItems = project.projectItems
+
+
+                            for offset in offsets {
+                                let item = allItems[offset]
+                                dataController.delete(item)
                             }
+
+                            dataController.save()
+                        }
+
+                        if showClosedProjects == false {
+                            Button {
+                                withAnimation {
+                                    let item = Item(context: moc)
+                                    item.project = project
+                                    item.creationDate = Date()
+                                    dataController.save()
+                                }
+                            } label: {
+                                Label("Add new Item", systemImage: "plus")
+                            }
+                        }
                     }
+                    
                 }
+
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle(showClosedProjects ? "Closed Projects" : "Open Projects")
+            .toolbar {
+                if showClosedProjects == false {
+                    Button {
+                        withAnimation {
+                            let project = Project(context: moc)
+                            project.closed = false
+                            project.creationDate = Date()
+                            dataController.save()
+                        }
+                    } label: {
+                        Label("Add project", systemImage: "plus")
+                    }
+                }
+            }
         }
     }
 
@@ -33,6 +76,10 @@ struct ProjectsView: View {
         self.showClosedProjects = showClosedProjects
 
         projects = FetchRequest<Project>(entity: Project.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Project.creationDate, ascending: false)], predicate: NSPredicate(format: "closed = %d", showClosedProjects))
+    }
+
+    func items(for project: Project) -> [Item] {
+        []
     }
 }
 
