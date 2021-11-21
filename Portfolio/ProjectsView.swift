@@ -52,7 +52,7 @@ struct ProjectsView: View {
                                             dataController.save()
                                         }
                                     } label: {
-                                        Label("Add new Item", systemImage: "plus")
+                                        Label("Add New Item", systemImage: "plus")
                                     }
                                 }
                             }
@@ -108,7 +108,7 @@ struct ProjectsView: View {
         projects = FetchRequest<Project>(entity: Project.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Project.creationDate, ascending: false)], predicate: NSPredicate(format: "closed = %d", showClosedProjects))
     }
 
- 
+
 }
 
 struct ProjectView_Previews: PreviewProvider {

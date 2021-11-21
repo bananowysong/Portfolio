@@ -10,7 +10,7 @@ import CoreData
 
 extension Project {
     var projectTitle: String {
-        title ?? "New Project"
+        title ?? NSLocalizedString("New Project", comment: "Create a new project")
     }
 
     var projectDetail: String {
