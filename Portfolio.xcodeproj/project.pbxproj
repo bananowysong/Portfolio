@@ -27,6 +27,7 @@
 		52E2248727497B70004B005F /* Awards.json in Resources */ = {isa = PBXBuildFile; fileRef = 52E2248627497B70004B005F /* Awards.json */; };
 		52E2248927497BDA004B005F /* Award.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2248827497BDA004B005F /* Award.swift */; };
 		52E2248B27498A94004B005F /* AwardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2248A27498A94004B005F /* AwardsView.swift */; };
+		52E2248D274A588A004B005F /* Color-Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2248C274A588A004B005F /* Color-Additions.swift */; };
 		52F731A427444B9B002C2AB3 /* EditProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F731A327444B9B002C2AB3 /* EditProjectView.swift */; };
 		52F7B3EB273BDAE90017DDC7 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52F7B3E9273BDAE90017DDC7 /* Main.xcdatamodeld */; };
 		52F7B3ED273BDDB00017DDC7 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F7B3EC273BDDB00017DDC7 /* DataController.swift */; };
@@ -56,6 +57,7 @@
 		52E2248627497B70004B005F /* Awards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Awards.json; sourceTree = "<group>"; };
 		52E2248827497BDA004B005F /* Award.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Award.swift; sourceTree = "<group>"; };
 		52E2248A27498A94004B005F /* AwardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsView.swift; sourceTree = "<group>"; };
+		52E2248C274A588A004B005F /* Color-Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color-Additions.swift"; sourceTree = "<group>"; };
 		52F731A327444B9B002C2AB3 /* EditProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectView.swift; sourceTree = "<group>"; };
 		52F7B3EA273BDAE90017DDC7 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
 		52F7B3EC273BDDB00017DDC7 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				52E2248827497BDA004B005F /* Award.swift */,
 				52E2248627497B70004B005F /* Awards.json */,
 				52E2248A27498A94004B005F /* AwardsView.swift */,
+				52E2248C274A588A004B005F /* Color-Additions.swift */,
 				527309CB2741C15C00C7226A /* Colors.xcassets */,
 				529AD672273BD17000BF72AB /* Assets.xcassets */,
 				52F7B3E9273BDAE90017DDC7 /* Main.xcdatamodeld */,
@@ -220,6 +223,7 @@
 				52E2248927497BDA004B005F /* Award.swift in Sources */,
 				527309C62741601A00C7226A /* ItemRowView.swift in Sources */,
 				52F7B3ED273BDDB00017DDC7 /* DataController.swift in Sources */,
+				52E2248D274A588A004B005F /* Color-Additions.swift in Sources */,
 				527309C82741B0E700C7226A /* Binding-OnChange.swift in Sources */,
 				52E2248127494AE7004B005F /* Sequence-Sorting.swift in Sources */,
 				52E2248527497705004B005F /* Bundle-Decodable.swift in Sources */,
