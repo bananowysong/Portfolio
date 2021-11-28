@@ -50,6 +50,13 @@ struct EditProjectView: View {
                             color = item
                             update()
                         }
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityAddTraits(
+                            item == color
+                            ? [.isButton, .isSelected]
+                            : .isButton
+                        )
+                        .accessibilityLabel(LocalizedStringKey(item))
                     }.padding(.vertical)
                 }
             }, header: { Text("Custom project color") })

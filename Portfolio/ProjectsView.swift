@@ -75,6 +75,7 @@ struct ProjectsView: View {
                                 } label: {
                                     Label("Add project", systemImage: "plus")
                                 }
+
                             }
                         }
 
