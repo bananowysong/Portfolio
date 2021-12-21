@@ -5,8 +5,8 @@
 //  Created by MacBook Pro on 12/11/2021.
 //
 
-import Foundation
 import CoreData
+import SwiftUI
 
 extension Project {
     var projectTitle: String {
@@ -81,5 +81,9 @@ extension Project {
         case .optimized:
             return projectItemsDefaultSorted
         }
+    }
+
+    var label: LocalizedStringKey {
+        LocalizedStringKey("\(projectTitle), \(projectItems.count) items \(completionAmount * 100, specifier: "%g")% complete.")
     }
 }
