@@ -21,7 +21,6 @@ extension Project {
         color ?? "Light Blue"
     }
 
-
     var projectItemsDefaultSorted: [Item] {
          projectItems.sorted { first, second in
             if first.completed == false {
@@ -56,9 +55,18 @@ extension Project {
         return Double(completedItems.count) / Double(originalItems.count)
     }
 
-    static let colors = ["Pink", "Purple", "Red", "Orange", "Gold", "Green",
-                         "Teal", "Light Blue", "Dark Blue", "Midnight",
-                         "Dark Gray", "Gray"]
+    static let colors = ["Pink",
+                         "Purple",
+                         "Red",
+                         "Orange",
+                         "Gold",
+                         "Green",
+                         "Teal",
+                         "Light Blue",
+                         "Dark Blue",
+                         "Midnight",
+                         "Dark Gray",
+                         "Gray"]
 
     static var example: Project {
         let controller = DataController(inMemory: true)
@@ -84,6 +92,7 @@ extension Project {
     }
 
     var label: LocalizedStringKey {
+        // swiftlint:disable:next line_length
         LocalizedStringKey("\(projectTitle), \(projectItems.count) items \(completionAmount * 100, specifier: "%g")% complete.")
     }
 }

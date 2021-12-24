@@ -42,7 +42,6 @@ struct ProjectsView: View {
             }
             SelectSomethingView()
 
-
         }
     }
 
@@ -76,8 +75,7 @@ struct ProjectsView: View {
     var addProjectToolbarItem: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             if showClosedProjects == false {
-                Button(action: addProject)
-                {
+                Button(action: addProject) {
                     if UIAccessibility.isVoiceOverRunning {
                         Text("Add Project")
                     } else {
@@ -131,9 +129,12 @@ struct ProjectsView: View {
     init(showClosedProjects: Bool) {
         self.showClosedProjects = showClosedProjects
 
-        projects = FetchRequest<Project>(entity: Project.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Project.creationDate, ascending: false)], predicate: NSPredicate(format: "closed = %d", showClosedProjects))
+        projects = FetchRequest<Project>(
+            entity: Project.entity(),
+            sortDescriptors: [NSSortDescriptor(keyPath: \Project.creationDate, ascending: false)],
+            predicate: NSPredicate(format: "closed = %d", showClosedProjects)
+        )
     }
-
 
 }
 

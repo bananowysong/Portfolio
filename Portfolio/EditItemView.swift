@@ -15,7 +15,6 @@ struct EditItemView: View {
     @State private var priority: Int
     @State private var completed: Bool
 
-
     var body: some View {
         Form {
             Section(content: {
@@ -66,7 +65,6 @@ struct EditItemView: View {
 struct EditingView_Previews: PreviewProvider {
     static var dataController = DataController.preview
     static var previews: some View {
-        
 
         EditItemView(item: Item.example)
             .environmentObject(dataController)

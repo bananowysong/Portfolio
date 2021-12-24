@@ -21,7 +21,6 @@ extension Item {
         creationDate ?? Date()
     }
 
-
     static var example: Item {
         let controller = DataController(inMemory: true)
         let viewContext = controller.container.viewContext
@@ -38,4 +37,3 @@ extension Item {
         case optimized, title, creationDate
     }
 }
-
