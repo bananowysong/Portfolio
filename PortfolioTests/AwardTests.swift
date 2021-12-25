@@ -30,7 +30,7 @@ class AwardTests: BaseTestCase {
         for (count, value) in values.enumerated() {
 
             for _ in 0..<value {
-                let item = Item(context: managedObjectContext)
+                _ = Item(context: managedObjectContext)
             }
 
             let matches = awards.filter { award in
