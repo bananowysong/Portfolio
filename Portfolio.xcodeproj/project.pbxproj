@@ -13,6 +13,7 @@
 		525FEE7C27778E0700CA864B /* PortfolioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FEE7B27778E0700CA864B /* PortfolioTests.swift */; };
 		525FEE852777909600CA864B /* AssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FEE842777909500CA864B /* AssetTests.swift */; };
 		525FEE872777963B00CA864B /* ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FEE862777963B00CA864B /* ProjectTests.swift */; };
+		525FEE8927779B1900CA864B /* AwardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FEE8827779B1900CA864B /* AwardTests.swift */; };
 		527309BA273EBC2E00C7226A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527309B9273EBC2E00C7226A /* CloudKit.framework */; };
 		527309BC273EBEB200C7226A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527309BB273EBEB200C7226A /* HomeView.swift */; };
 		527309BE273EBF7D00C7226A /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527309BD273EBF7D00C7226A /* ProjectsView.swift */; };
@@ -58,6 +59,7 @@
 		525FEE7B27778E0700CA864B /* PortfolioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioTests.swift; sourceTree = "<group>"; };
 		525FEE842777909500CA864B /* AssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetTests.swift; sourceTree = "<group>"; };
 		525FEE862777963B00CA864B /* ProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTests.swift; sourceTree = "<group>"; };
+		525FEE8827779B1900CA864B /* AwardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardTests.swift; sourceTree = "<group>"; };
 		527309B6273EBBED00C7226A /* Portfolio.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Portfolio.entitlements; sourceTree = "<group>"; };
 		527309B7273EBBFF00C7226A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		527309B9273EBC2E00C7226A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -200,6 +202,7 @@
 				525FEE7B27778E0700CA864B /* PortfolioTests.swift */,
 				525FEE842777909500CA864B /* AssetTests.swift */,
 				525FEE862777963B00CA864B /* ProjectTests.swift */,
+				525FEE8827779B1900CA864B /* AwardTests.swift */,
 			);
 			path = PortfolioTests;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				525FEE852777909600CA864B /* AssetTests.swift in Sources */,
+				525FEE8927779B1900CA864B /* AwardTests.swift in Sources */,
 				525FEE7C27778E0700CA864B /* PortfolioTests.swift in Sources */,
 				525FEE872777963B00CA864B /* ProjectTests.swift in Sources */,
 			);

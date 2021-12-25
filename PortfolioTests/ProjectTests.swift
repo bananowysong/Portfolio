@@ -10,25 +10,32 @@ import CoreData
 @testable import Portfolio
 
 class ProjectTests: BaseTestCase {
+    func testCreatingProjectsAndItems() {
+        let targetCount = 10
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+        for _ in 0..<targetCount {
+            let project = Project(context: managedObjectContext)
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+            for _ in 0..<targetCount {
+                let item = Item(context: managedObjectContext)
+                item.project = project
+            }
         }
+
+        XCTAssertEqual(dataController.count(for: Project.fetchRequest()), targetCount)
+        XCTAssertEqual(dataController.count(for: Item.fetchRequest()), targetCount * targetCount)
     }
 
+    func testDeletingProjectCascadeDeletesItems() throws {
+        try dataController.createSampleData()
+
+        let request = NSFetchRequest<Project>(entityName: "Project")
+        let projects = try managedObjectContext.fetch(request)
+
+        dataController.delete(projects[0])
+
+        XCTAssertEqual(dataController.count(for: Project.fetchRequest()), 4)
+        XCTAssertEqual(dataController.count(for: Item.fetchRequest()), 40)
+
+    }
 }
