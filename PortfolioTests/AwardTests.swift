@@ -20,7 +20,7 @@ class AwardTests: BaseTestCase {
 
     func testNoAwards() {
         for award in awards {
-            XCTAssertEqual(dataController.hasEearned(award: award), false, "New users should have no earned awards")
+            XCTAssertEqual(dataController.hasEarned(award: award), false, "New users should have no earned awards")
         }
     }
 
@@ -34,7 +34,7 @@ class AwardTests: BaseTestCase {
             }
 
             let matches = awards.filter { award in
-                award.criterion == "items" && dataController.hasEearned(award: award)
+                award.criterion == "items" && dataController.hasEarned(award: award)
             }
 
             XCTAssertEqual(matches.count, count + 1, "Adding \(value) items should unlock \(count + 1) awards.")
@@ -55,7 +55,7 @@ class AwardTests: BaseTestCase {
             }
 
             let matches = awards.filter { award in
-                award.criterion == "complete" && dataController.hasEearned(award: award)
+                award.criterion == "complete" && dataController.hasEarned(award: award)
             }
 
             XCTAssertEqual(matches.count, count + 1, "Completing \(value) items should unlock \(count + 1) awards.")

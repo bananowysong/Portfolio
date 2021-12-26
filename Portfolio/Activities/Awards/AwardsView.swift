@@ -47,15 +47,15 @@ struct AwardsView: View {
     }
 
     func color(for award: Award) -> Color {
-        dataController.hasEearned(award: award) ? Color(award.color) : Color.secondary.opacity(0.5)
+        dataController.hasEarned(award: award) ? Color(award.color) : Color.secondary.opacity(0.5)
     }
 
     func label(for award: Award) -> String {
-        dataController.hasEearned(award: award) ? "Unlocked: \(award.name)" : "Locked"
+        dataController.hasEarned(award: award) ? "Unlocked: \(award.name)" : "Locked"
     }
 
     func getAwardAlert() -> Alert {
-        if dataController.hasEearned(award: selectedAward) {
+        if dataController.hasEarned(award: selectedAward) {
             return Alert(
                 title: Text("Unlocked: \(selectedAward.name)"),
                 message: Text(selectedAward.description),

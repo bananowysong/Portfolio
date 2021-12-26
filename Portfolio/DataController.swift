@@ -116,7 +116,7 @@ class DataController: ObservableObject {
         (try? container.viewContext.count(for: fetchRequest)) ?? 0
     }
 
-    func hasEearned(award: Award) -> Bool {
+    func hasEarned(award: Award) -> Bool {
         switch award.criterion {
 
         // returns true if they added a certain number of items
