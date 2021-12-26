@@ -111,28 +111,28 @@ class PortfolioUITests: XCTestCase {
 
     }
 
-    func testUnlockingAward() {
-        app.buttons["Awards"].tap()
-        guard let firstAward = app.scrollViews.buttons.allElementsBoundByIndex.first else {
-            fatalError()
-        }
-
-        firstAward.tap()
-        XCTAssertTrue(app.alerts["Locked"].exists, "There should be a Locked alert showing for awards.")
-        app.buttons["OK"].tap()
-        app.buttons["Open"].tap()
-        XCTAssertEqual(app.tables.cells.count, 0, "There should be no rows initially")
-
-        app.buttons["Add Project"].tap()
-        XCTAssertEqual(app.tables.cells.count, 1, "There should be 1 rows(s) in the list.")
-
-        app.buttons["Add New Item"].tap()
-        XCTAssertEqual(app.tables.cells.count, 2, "There should be 2 list rows after adding an item.")
-
-        app.buttons["Awards"].tap()
-        app.scrollViews.buttons.allElementsBoundByIndex.first!.tap()
-        XCTAssertTrue(app.alerts["Unlocked: First Steps"].exists, "The first award should be unlocked.")
-    }
+//    func testUnlockingAward() {
+//        app.buttons["Awards"].tap()
+//        guard let firstAward = app.scrollViews.buttons.allElementsBoundByIndex.first else {
+//            fatalError()
+//        }
+//
+//        firstAward.tap()
+//        XCTAssertTrue(app.alerts["Locked"].exists, "There should be a Locked alert showing for awards.")
+//        app.buttons["OK"].tap()
+//        app.buttons["Open"].tap()
+//        XCTAssertEqual(app.tables.cells.count, 0, "There should be no rows initially")
+//
+//        app.buttons["Add Project"].tap()
+//        XCTAssertEqual(app.tables.cells.count, 1, "There should be 1 rows(s) in the list.")
+//
+//        app.buttons["Add New Item"].tap()
+//        XsCTAssertEqual(app.tables.cells.count, 2, "There should be 2 list rows after adding an item.")
+//
+//        app.buttons["Awards"].tap()
+//        app.scrollViews.buttons.allElementsBoundByIndex.first!.tap()
+//        XCTAssertTrue(app.alerts["Unlocked: First Steps"].exists, "The first award should be unlocked.")
+//    }
 
     func testSwipeToDeleteWorks() {
         testAddingItemInsertRows()
