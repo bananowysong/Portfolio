@@ -30,6 +30,7 @@ struct ProjectHeaderView: View {
                 Image(systemName: "square.and.pencil")
                     .imageScale(.large)
             }
+            .accessibilityLabel(project.projectTitle)
         }
         .padding(.bottom, 10)
     }
