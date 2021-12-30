@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import CoreSpotlight
 
 struct HomeView: View {
     static let tag: String? = "Home"
@@ -35,13 +36,31 @@ struct HomeView: View {
                     .padding(.horizontal)
 
                 }
+                if let item = viewModel.selectedItem {
 
+                    // performs navigation programatically when app is launched
+                    // using spotlight
+                    NavigationLink(destination: EditItemView(item: item),
+                                   tag: item,
+                                   selection: $viewModel.selectedItem,
+                                   label: EmptyView.init
+                    ).id(item)
+                }
             }
             .toolbar {
                 Button("Add Data", action: viewModel.addSampleData)
             }
             .background(Color.systemGroupedBackground.ignoresSafeArea())
             .navigationTitle("Home")
+            .onContinueUserActivity(CSSearchableItemActionType, perform: loadSpotlightItem(_:))
+        }
+    }
+
+    /// Looks into NSUserActivity for a specific Core spotlight key to read identifier of item
+    /// - Parameter userActivity: NSUserActivity
+    func loadSpotlightItem(_ userActivity: NSUserActivity) {
+        if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
+            viewModel.selectItem(with: uniqueIdentifier)
         }
     }
 

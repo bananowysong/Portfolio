@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreSpotlight
 
 struct ContentView: View {
     @SceneStorage("selectedView") var selectedView: String?
@@ -41,6 +42,13 @@ struct ContentView: View {
                     Text("Awards")
                 }
         }
+        .onContinueUserActivity(CSSearchableItemActionType, perform: moveToHome(_:))
+    }
+
+    /// Moves the HomveView on top of stack when the app is launched by selecting spotlight item
+    /// - Parameter input: NSSearchActivity
+    func moveToHome(_ input: Any) {
+        selectedView = HomeView.tag
     }
 }
 

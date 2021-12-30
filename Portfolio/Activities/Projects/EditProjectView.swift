@@ -120,7 +120,10 @@ struct EditProjectView: View {
                 let end = CHHapticParameterCurve.ControlPoint(relativeTime: 1, value: 0)
 
                 // use that curve to control the haptic strength
-                let parameter = CHHapticParameterCurve(parameterID: .hapticIntensityControl, controlPoints: [start, end], relativeTime: 0
+                let parameter = CHHapticParameterCurve(
+                    parameterID: .hapticIntensityControl,
+                    controlPoints: [start, end],
+                    relativeTime: 0
                 )
 
                 let event1 = CHHapticEvent(
