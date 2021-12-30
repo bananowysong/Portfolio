@@ -11,7 +11,7 @@ extension ItemRowView {
     class ViewModel: ObservableObject {
         let project: Project
         let item: Item
-            
+
         var title: String {
             item.itemTitle
         }
