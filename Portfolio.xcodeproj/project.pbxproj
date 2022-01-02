@@ -34,6 +34,7 @@
 		527309C82741B0E700C7226A /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527309C72741B0E700C7226A /* Binding-OnChange.swift */; };
 		527309CA2741B70E00C7226A /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527309C92741B70E00C7226A /* ProjectHeaderView.swift */; };
 		527309CC2741C15C00C7226A /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 527309CB2741C15C00C7226A /* Colors.xcassets */; };
+		528E00F12781B48700A6D3B2 /* UnlockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528E00F02781B48700A6D3B2 /* UnlockManager.swift */; };
 		529AD66F273BD16A00BF72AB /* PortfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529AD66E273BD16A00BF72AB /* PortfolioApp.swift */; };
 		529AD671273BD16A00BF72AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529AD670273BD16A00BF72AB /* ContentView.swift */; };
 		529AD673273BD17000BF72AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 529AD672273BD17000BF72AB /* Assets.xcassets */; };
@@ -101,6 +102,8 @@
 		527309C72741B0E700C7226A /* Binding-OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
 		527309C92741B70E00C7226A /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
 		527309CB2741C15C00C7226A /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		528E00F02781B48700A6D3B2 /* UnlockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockManager.swift; sourceTree = "<group>"; };
+		528E00F22781BFE700A6D3B2 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		529AD66B273BD16A00BF72AB /* Portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		529AD66E273BD16A00BF72AB /* PortfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioApp.swift; sourceTree = "<group>"; };
 		529AD670273BD16A00BF72AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -312,6 +315,8 @@
 			children = (
 				529AD66E273BD16A00BF72AB /* PortfolioApp.swift */,
 				52F7B3EC273BDDB00017DDC7 /* DataController.swift */,
+				528E00F02781B48700A6D3B2 /* UnlockManager.swift */,
+				528E00F22781BFE700A6D3B2 /* Configuration.storekit */,
 				525FEE712777368D00CA864B /* Activities */,
 				525FEE6F2777341100CA864B /* Configuration */,
 				525FEE6E277733F000CA864B /* Localization */,
@@ -520,6 +525,7 @@
 				52E2248B27498A94004B005F /* AwardsView.swift in Sources */,
 				527309BE273EBF7D00C7226A /* ProjectsView.swift in Sources */,
 				525FEEAA2779215F00CA864B /* HomeViewModel.swift in Sources */,
+				528E00F12781B48700A6D3B2 /* UnlockManager.swift in Sources */,
 				52F7B3EB273BDAE90017DDC7 /* Main.xcdatamodeld in Sources */,
 				52F731A427444B9B002C2AB3 /* EditProjectView.swift in Sources */,
 				527309C2273F010E00C7226A /* Project-CoreDataHelpers.swift in Sources */,

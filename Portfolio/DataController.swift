@@ -31,13 +31,31 @@ class DataController: ObservableObject {
         return managedObjectModel
     }()
 
+    // The user defaults suite used to save users data. .standard is not used here, but in initializer to not create
+    // hidden dependency, that couldn't be controled with tests
+    let defaults: UserDefaults
+
+    /// Loads and saves whether our premium unlock has been unlocked
+    var fullVersionUnlocked: Bool {
+        get {
+            defaults.bool(forKey: "fullVersionUnlocked")
+        }
+
+        set {
+            defaults.set(newValue, forKey: "fullVersionUnlocked")
+        }
+    }
+
     /// Initializes a data controller, either in memory (for temporary use such as testing and previewing),
     /// or on permanent storage (for use in regular app runs.)
     ///
     /// Defaults to permanent storage.
     /// - Parameter inMemory: Whether to store this data in temporary memory or not.
-    init(inMemory: Bool = false) {
+    /// - Parameter defaults: The UserDefaults suite where user data should be stored
+    init(inMemory: Bool = false, defaults: UserDefaults = .standard) {
         container = NSPersistentCloudKitContainer(name: "Main", managedObjectModel: Self.model)
+
+        self.defaults = defaults
 
         // For testing and previewing purposes, we create a
         // temporary, in-memory database by writing to /dev/null
