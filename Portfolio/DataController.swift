@@ -309,4 +309,24 @@ class DataController: ObservableObject {
             SKStoreReviewController.requestReview(in: windowScene)
         }
     }
+
+    // DiscardableResult is used when although the function returns a value, the
+    // compiler shouldn’t generate a warning if the return value is unused.
+
+    /// Used to add new project
+    /// - Returns: False if the app does not have premium unlocked
+    @discardableResult func addProject() -> Bool {
+        // Check if adding project is possible
+        let canCreate = fullVersionUnlocked || count(for: Project.fetchRequest()) < 3
+
+        if canCreate {
+            let project = Project(context: container.viewContext)
+            project.closed = false
+            project.creationDate = Date()
+            save()
+            return true
+        } else {
+            return false
+        }
+    }
 }

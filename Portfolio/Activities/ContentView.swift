@@ -43,12 +43,23 @@ struct ContentView: View {
                 }
         }
         .onContinueUserActivity(CSSearchableItemActionType, perform: moveToHome(_:))
+        .onOpenURL(perform: openURL(_:))
     }
 
     /// Moves the HomveView on top of stack when the app is launched by selecting spotlight item
     /// - Parameter input: NSSearchActivity
     func moveToHome(_ input: Any) {
         selectedView = HomeView.tag
+    }
+
+    /// Moves the ProjectsView on top of navigation stack when app is launched using shortcut and creates new project
+    /// - Parameter url: URL
+    func openURL(_ url: URL) {
+        selectedView = ProjectsView.openTag
+        // Project is created here because SwiftUI had some problems with calling
+        // OpenURL on different TAB than the one that is opened on default
+        // When COLD STARTING
+        _ = dataController.addProject()
     }
 }
 

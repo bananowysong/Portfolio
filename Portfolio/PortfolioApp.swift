@@ -12,6 +12,9 @@ struct PortfolioApp: App {
     @StateObject var dataController: DataController
     @StateObject var unlockManager: UnlockManager
 
+    /// Use AppDelegate for any UIKit functionality swiftUi doesn't support
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var body: some Scene {
         WindowGroup {
             ContentView()
