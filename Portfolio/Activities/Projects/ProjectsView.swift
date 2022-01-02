@@ -39,6 +39,9 @@ struct ProjectsView: View {
             SelectSomethingView()
 
         }
+        .sheet(isPresented: $viewModel.showingUnlockView) {
+            UnlockView()
+        }
     }
 
     var projectsList: some View {

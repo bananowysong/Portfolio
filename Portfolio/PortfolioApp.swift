@@ -22,10 +22,12 @@ struct PortfolioApp: App {
             // no longer the foreground app. Use this rather than
             // scene phase so we can port to macOS, where scene
             // phase won't detect our app losing focus.
+                .onAppear(perform: dataController.appLaunched)
                 .onReceive(
                     NotificationCenter.default.publisher(
                         for: UIApplication.willResignActiveNotification),
                     perform: save)
+
         }
     }
 
