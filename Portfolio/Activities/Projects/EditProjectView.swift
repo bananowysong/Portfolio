@@ -22,6 +22,12 @@ struct EditProjectView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showingDeleteConfirm = false
 
+    @State private var remindMe: Bool
+    @State private var reminderTime: Date
+
+    /// Determines whether notification adding error message is visible or not
+    @State private var showingNotificationsError = false
+
     let colorColumns = [
         GridItem(.adaptive(minimum: 44))
     ]
@@ -49,6 +55,27 @@ struct EditProjectView: View {
                 }
                 .accentColor(.red)
             }
+
+            Section(content: {
+                Toggle("Show reminders", isOn: $remindMe.animation().onChange(update))
+                    .alert(isPresented: $showingNotificationsError) {
+                        Alert(
+                            title: Text("Oops!"),
+                            message: Text("There was a problem. Please check you have notifications enabled."),
+                            primaryButton: .default(Text("Check settings"), action: showApppSettings),
+                            secondaryButton: .cancel()
+                        )
+                    }
+
+                if remindMe {
+                    DatePicker(
+                        "Reminder time",
+                        selection: $reminderTime.onChange(update),
+                        displayedComponents: .hourAndMinute
+                    )
+                }
+            }, header: { Text("Project reminders") })
+
         }
         .navigationTitle("Edit Project")
         .onDisappear(perform: dataController.save)
@@ -68,12 +95,36 @@ struct EditProjectView: View {
         _title = State(wrappedValue: project.projectTitle)
         _detail = State(wrappedValue: project.projectDetail)
         _color = State(wrappedValue: project.projectColor)
+
+        if let projectReminderTime = project.reminderTime {
+            _reminderTime = State(wrappedValue: projectReminderTime)
+            _remindMe = State(wrappedValue: true)
+        } else {
+            _reminderTime = State(wrappedValue: Date())
+            _remindMe = State(wrappedValue: false)
+        }
     }
 
     func update() {
         project.title = title
         project.detail = detail
         project.color = color
+
+        if remindMe {
+            project.reminderTime = reminderTime
+
+            dataController.addReminders(for: project) { success in
+                if success == false {
+                    project.reminderTime = nil
+                    remindMe = false
+
+                    showingNotificationsError = true
+                }
+            }
+        } else {
+            project.reminderTime = nil
+            dataController.removeReminders(for: project)
+        }
     }
 
     func delete() {
@@ -107,6 +158,18 @@ struct EditProjectView: View {
 
     }
 
+    /// Opens app's settings
+    func showApppSettings() {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            UIApplication.shared.open(settingsUrl)
+        }
+    }
+
+    /// Toggles project close status and uses vibration as confirmation.
     func toggleProject() {
         project.closed.toggle()
         if project.closed {
