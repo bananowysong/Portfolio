@@ -8,8 +8,7 @@
 import CoreData
 import SwiftUI
 import CoreSpotlight
-import UserNotifications
-import StoreKit
+import WidgetKit
 
 /// An environment singleton responsible for managing our Core Data stack, including handling saving,
 /// counting fetch requests, tracking awards, and dealing with sample data.
@@ -64,6 +63,13 @@ class DataController: ObservableObject {
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath:
                                                                     "/dev/null")
+        } else {
+            // redirect Core Data to use our app group’s container
+            let groupID = "group.iam.mrnoone.Portfolio"
+
+            if let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupID) {
+                container.persistentStoreDescriptions.first?.url = url.appendingPathComponent("Main.sqlite")
+            }
         }
 
         container.loadPersistentStores { _, error in
@@ -118,11 +124,12 @@ class DataController: ObservableObject {
         return dataController
     }()
 
-    /// Saves our Core Data context iff there are changes. This silently ignores
+    /// Saves our Core Data context iff there are changes and reloads timeliness for widgets. This silently ignores
     /// any errors caused by saving, but this should be fine because all our attributes are optional.
     func save() {
         if container.viewContext.hasChanges {
             try? container.viewContext.save()
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 
@@ -156,29 +163,6 @@ class DataController: ObservableObject {
 
     func count<T>(for fetchRequest: NSFetchRequest<T>) -> Int {
         (try? container.viewContext.count(for: fetchRequest)) ?? 0
-    }
-
-    func hasEarned(award: Award) -> Bool {
-        switch award.criterion {
-
-        // returns true if they added a certain number of items
-        case "items":
-            let fetchRequest: NSFetchRequest<Item> = NSFetchRequest(entityName: "Item")
-            let awardCount = count(for: fetchRequest)
-            return awardCount >= award.value
-
-        // returns true if they completed a certain number of items
-        case "complete":
-            let fetchRequest: NSFetchRequest<Item> = NSFetchRequest(entityName: "Item")
-            fetchRequest.predicate = NSPredicate(format: "completed = true")
-            let awardCount = count(for: fetchRequest)
-            return awardCount >= award.value
-
-        // an unknown award criterion; this should never be allowed
-        default:
-            // fatalError("Unknown award criterion \(award.criterion).")
-            return false
-        }
     }
 
     /// A method used to update sptlight records and save core data context
@@ -218,96 +202,31 @@ class DataController: ObservableObject {
         return try? container.viewContext.existingObject(with: id) as? Item
     }
 
-    /// Used to add reminder. If there is no permission then it requests it.
-    /// - Parameters:
-    ///   - project: Project
-    ///   - completion: Completion Handler
-    func addReminders(for project: Project, completion: @escaping (Bool) -> Void) {
-        let center = UNUserNotificationCenter.current()
-        center.getNotificationSettings { settings in
-            switch settings.authorizationStatus {
-            case .notDetermined:
-                self.requestNotifications { success in
-                    if success {
-                        self.placeReminders(for: project, completion: completion)
-                    } else {
-                        DispatchQueue.main.async {
-                            completion(false)
-                        }
-                    }
-                }
-            case .authorized:
-                self.placeReminders(for: project, completion: completion)
-            default:
-                DispatchQueue.main.async {
-                    completion(false)
-                }
-            }
-        }
+    /// Construct a fetch request to show the items with highest priority that are not completed and their project
+    /// is not closed
+    /// - Parameter count: Number of fetched items
+    /// - Returns: NSFetchRequest<Item>
+    func fetchRequestForTopItems(count: Int) -> NSFetchRequest<Item> {
+        let itemRequest: NSFetchRequest<Item> = Item.fetchRequest()
+
+        let completedPredicate = NSPredicate(format: "completed = false")
+        let openPredicate = NSPredicate(format: "project.closed = false")
+        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [openPredicate, completedPredicate])
+
+        itemRequest.predicate = compoundPredicate
+
+        itemRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Item.priority, ascending: false)
+        ]
+
+        itemRequest.fetchLimit = count
+        return itemRequest
     }
 
-    /// Used to remove all pending request for the project
-    /// - Parameter project: Project
-    func removeReminders(for project: Project) {
-        let center = UNUserNotificationCenter.current()
-        let id = project.objectID.uriRepresentation().absoluteString
-        center.removePendingNotificationRequests(withIdentifiers: [id])
-    }
-
-    /// Used to request permission to use notification center
-    /// - Parameter completion: completion handler
-    private func requestNotifications(completion: @escaping (Bool) -> Void) {
-        let center = UNUserNotificationCenter.current()
-
-        center.requestAuthorization(options: [.alert, .sound]) { granted, _ in
-            completion(granted)
-        }
-
-    }
-
-    /// Used to create and place request in the notification center
-    /// - Parameters:
-    ///   - project: Project
-    ///   - completion: completion handler
-    private func placeReminders(for project: Project, completion: @escaping (Bool) -> Void) {
-        // setting up the notification content
-        let content = UNMutableNotificationContent()
-        content.sound = .default
-        content.title = project.projectTitle
-
-        if let projectDetail = project.detail {
-            content.subtitle = projectDetail
-        }
-
-        // configuring notification trigger
-        let components = Calendar.current.dateComponents([.hour, .minute], from: project.reminderTime ?? Date())
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
-
-        // wrapping content and trigger into single notification
-        let id = project.objectID.uriRepresentation().absoluteString
-        let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
-
-        // sending request to the notification center
-        UNUserNotificationCenter.current().add(request) { error in
-            DispatchQueue.main.async {
-                if error == nil {
-                    completion(true)
-                } else {
-                    completion(false)
-                }
-            }
-        }
-    }
-
-    /// Looks for an active (currently used for input) scene
-    func appLaunched() {
-        guard count(for: Project.fetchRequest()) >= 5 else { return }
-        let allScenes = UIApplication.shared.connectedScenes
-        let scene = allScenes.first { $0.activationState == .foregroundActive }
-
-        if let windowScene = scene as? UIWindowScene {
-            SKStoreReviewController.requestReview(in: windowScene)
-        }
+    /// Performs a fetchrequest
+    /// - Returns: Array of T
+    func result<T: NSManagedObject>(for fetchRequest: NSFetchRequest<T>) -> [T] {
+        return (try? container.viewContext.fetch(fetchRequest)) ?? []
     }
 
     // DiscardableResult is used when although the function returns a value, the
