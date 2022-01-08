@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreHaptics
+import CloudKit
 
 struct EditProjectView: View {
     @ObservedObject var project: Project
@@ -78,6 +79,39 @@ struct EditProjectView: View {
 
         }
         .navigationTitle("Edit Project")
+        .toolbar {
+            // Performs operation on Cloud
+            Button {
+                let records = project.prepareCloudRecords()
+                let operation = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
+                operation.savePolicy = .allKeys
+
+                if #available(iOS 15.0, *) {
+                    operation.modifyRecordsResultBlock = { result in
+                        switch result {
+                        case .success:
+                            return
+                        case .failure(let error):
+                            print("Error: \(error.localizedDescription)")
+                        }
+                    }
+                } else {
+                    operation.modifyRecordsCompletionBlock = { _, _, error in
+                        if let error = error {
+                            print("Error: \(error.localizedDescription)")
+                        }
+                    }
+                }
+
+                // Use identifier when initializing Container because the
+                // bundle ID which is used by default to init container
+                // differs from iCloud container I created when making app
+                CKContainer.init(identifier: "iCloud.iam.mrnoone.portfolio").publicCloudDatabase.add(operation)
+
+            } label: {
+                Label("Upload to iCloud", systemImage: "icloud.and.arrow.up")
+            }
+        }
         .onDisappear(perform: dataController.save)
 
         .alert(isPresented: $showingDeleteConfirm) {

@@ -18,16 +18,17 @@
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
-			<key>UIApplicationShortcutItemType</key>
-			<string>portfolio://newProject</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>New Project</string>
 			<key>UIApplicationShortcutItemIconSymbolName</key>
 			<string>rectangle.stack.badge.plus</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>New Project</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>portfolio://newProject</string>
 		</dict>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>bluetooth-peripheral</string>
 		<string>remote-notification</string>
 	</array>
 </dict>
