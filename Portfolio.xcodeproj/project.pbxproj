@@ -230,6 +230,7 @@
 		525FEE6D277733C800CA864B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				529FB6042789DE8E00758997 /* DataController */,
 				525FEE742777380800CA864B /* CoreData */,
 				52E2248427497705004B005F /* Bundle-Decodable.swift */,
 				52E2248027494AE7004B005F /* Sequence-Sorting.swift */,
@@ -425,9 +426,6 @@
 				528E00FC27821F5900A6D3B2 /* AppDelegate.swift */,
 				528E00FE27821F6D00A6D3B2 /* SceneDelegate.swift */,
 				52F7B3EC273BDDB00017DDC7 /* DataController.swift */,
-				528E01192782579400A6D3B2 /* DataController-Reminders.swift */,
-				528E011B2782590200A6D3B2 /* DataController-Awards.swift */,
-				528E011D2782597800A6D3B2 /* DataController-StoreKit.swift */,
 				525FEE712777368D00CA864B /* Activities */,
 				525FEE6F2777341100CA864B /* Configuration */,
 				525FEE6E277733F000CA864B /* Localization */,
@@ -445,6 +443,16 @@
 				529AD675273BD17000BF72AB /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		529FB6042789DE8E00758997 /* DataController */ = {
+			isa = PBXGroup;
+			children = (
+				528E01192782579400A6D3B2 /* DataController-Reminders.swift */,
+				528E011B2782590200A6D3B2 /* DataController-Awards.swift */,
+				528E011D2782597800A6D3B2 /* DataController-StoreKit.swift */,
+			);
+			path = DataController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
