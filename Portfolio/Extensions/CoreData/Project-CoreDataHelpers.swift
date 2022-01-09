@@ -130,4 +130,27 @@ extension Project {
         records.append(parent)
         return records
     }
+
+    func checkCloudStatus(_ completion: @escaping (Bool) -> Void) {
+        let name = objectID.uriRepresentation().absoluteString
+        let id = CKRecord.ID(recordName: name)
+
+        // For performance reasons CKFetchRecordsOperation is used - because
+        // it asks for specific records based on their ID, and does not use any Predicate
+        // we use [ID] in desired keys only so that it returns faster (deosnt have to
+        // return data in other fields)
+        let operation = CKFetchRecordsOperation(recordIDs: [id])
+        operation.desiredKeys = ["recordID"]
+
+        operation.fetchRecordsCompletionBlock = { records, _ in
+            if let records = records {
+                // if there is 1 record the completion handler will be called with true, otherwise false
+                completion(records.count == 1)
+            } else {
+                completion(false)
+            }
+        }
+        CKContainer.init(identifier: "iCloud.iam.mrnoone.portfolio").publicCloudDatabase.add(operation)
+        
+    }
 }

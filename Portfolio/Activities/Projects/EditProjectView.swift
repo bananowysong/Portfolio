@@ -10,6 +10,17 @@ import CoreHaptics
 import CloudKit
 
 struct EditProjectView: View {
+
+    /// A status of the project in the cloud
+    enum CloudStatus {
+        /// Checking status
+        case checking
+        /// Project exists in cloud
+        case exists
+        /// Project is absent from cloud
+        case absent
+    }
+
     @ObservedObject var project: Project
 
     @EnvironmentObject var dataController: DataController
@@ -38,6 +49,9 @@ struct EditProjectView: View {
     let colorColumns = [
         GridItem(.adaptive(minimum: 44))
     ]
+
+    /// Current status of the project in cloud
+    @State private var cloudStatus = CloudStatus.checking
 
     var body: some View {
         Form {
@@ -86,11 +100,21 @@ struct EditProjectView: View {
         }
         .navigationTitle("Edit Project")
         .toolbar {
-            // Performs operation on Cloud
-            Button(action: uploadToCloud, label: {
-                Label("Upload to iCloud", systemImage: "icloud.and.arrow.up")
-            })
+            switch cloudStatus {
+            case .checking:
+                ProgressView()
+            case .exists:
+                Button(action: removeFromCloud) {
+                    Label("Remove from iCloud", systemImage: "icloud.slash")
+                }
+            case .absent:
+                // Performs operation on Cloud
+                Button(action: uploadToCloud, label: {
+                    Label("Upload to iCloud", systemImage: "icloud.and.arrow.up")
+                })
+            }
         }
+        .onAppear(perform: updateCloudStatus)
         .sheet(isPresented: $showingSignIn, content: SignInView.init)
         .onDisappear(perform: dataController.save)
         .alert(isPresented: $showingDeleteConfirm) {
@@ -236,6 +260,7 @@ struct EditProjectView: View {
                 operation.modifyRecordsResultBlock = { result in
                     switch result {
                     case .success:
+                        updateCloudStatus()
                         return
                     case .failure(let error):
                         print("Error: \(error.localizedDescription)")
@@ -247,8 +272,10 @@ struct EditProjectView: View {
                         print("Error: \(error.localizedDescription)")
                     }
                 }
+                updateCloudStatus()
             }
 
+            cloudStatus = .checking
             // Use identifier when initializing Container because the
             // bundle ID which is used by default to init container
             // differs from iCloud container I created when making app
@@ -256,6 +283,34 @@ struct EditProjectView: View {
         } else {
             showingSignIn = true
         }
+    }
+
+    /// Checks iCloud status for a particular Project
+    func updateCloudStatus() {
+        project.checkCloudStatus { exists in
+            if exists {
+                cloudStatus = .exists
+            } else {
+                cloudStatus = .absent
+            }
+        }
+    }
+
+    /// Removes project from cloud
+    func removeFromCloud() {
+        let name = project.objectID.uriRepresentation().absoluteString
+        let id = CKRecord.ID(recordName: name)
+
+        // deleting Project delets all of its items because it has .deleteSelf reference
+        let operation = CKModifyRecordsOperation(recordsToSave: nil, recordIDsToDelete: [id])
+
+        operation.modifyRecordsCompletionBlock = { _, _, _ in
+            updateCloudStatus()
+        }
+
+        cloudStatus = .checking
+
+        CKContainer.init(identifier: "iCloud.iam.mrnoone.portfolio").publicCloudDatabase.add(operation)
     }
 }
 
