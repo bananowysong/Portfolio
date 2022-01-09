@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import CloudKit
 
 extension HomeView {
     class ViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
@@ -38,6 +39,12 @@ extension HomeView {
 
         func selectItem(with identifier: String) {
             selectedItem = dataController.item(with: identifier)
+        }
+
+        /// Removes the user so that sign with apple ID might be tested
+        func removeUser() {
+            UserDefaults.standard.set(nil, forKey: "username")
+            NSUbiquitousKeyValueStore.default.set("", forKey: "username")
         }
 
         init(dataController: DataController) {

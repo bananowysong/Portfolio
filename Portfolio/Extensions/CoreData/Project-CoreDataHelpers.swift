@@ -98,7 +98,7 @@ extension Project {
     }
 
     // Converts all project data into CloudKit CKRecords
-    func prepareCloudRecords() -> [CKRecord] {
+    func prepareCloudRecords(owner: String) -> [CKRecord] {
         // using CoreData Object ID as ID for the CKRecord
         let parentName = objectID.uriRepresentation().absoluteString
         let parentID = CKRecord.ID(recordName: parentName)
@@ -109,7 +109,7 @@ extension Project {
         // writing data using dictionary syntax
         parent["title"] = projectTitle
         parent["detail"] = projectDetail
-        parent["owner"] = "TwoStraws"
+        parent["owner"] = owner
         parent["closed"] = closed
 
         // creating the records for items in project by mapping sorted items

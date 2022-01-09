@@ -29,6 +29,12 @@ struct EditProjectView: View {
     /// Determines whether notification adding error message is visible or not
     @State private var showingNotificationsError = false
 
+    /// User name satored in UserDefaults
+    @AppStorage("username") var username: String?
+
+    /// Responsible for showing the SignIn sheet
+    @State private var showingSignIn = false
+
     let colorColumns = [
         GridItem(.adaptive(minimum: 44))
     ]
@@ -81,39 +87,12 @@ struct EditProjectView: View {
         .navigationTitle("Edit Project")
         .toolbar {
             // Performs operation on Cloud
-            Button {
-                let records = project.prepareCloudRecords()
-                let operation = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
-                operation.savePolicy = .allKeys
-
-                if #available(iOS 15.0, *) {
-                    operation.modifyRecordsResultBlock = { result in
-                        switch result {
-                        case .success:
-                            return
-                        case .failure(let error):
-                            print("Error: \(error.localizedDescription)")
-                        }
-                    }
-                } else {
-                    operation.modifyRecordsCompletionBlock = { _, _, error in
-                        if let error = error {
-                            print("Error: \(error.localizedDescription)")
-                        }
-                    }
-                }
-
-                // Use identifier when initializing Container because the
-                // bundle ID which is used by default to init container
-                // differs from iCloud container I created when making app
-                CKContainer.init(identifier: "iCloud.iam.mrnoone.portfolio").publicCloudDatabase.add(operation)
-
-            } label: {
+            Button(action: uploadToCloud, label: {
                 Label("Upload to iCloud", systemImage: "icloud.and.arrow.up")
-            }
+            })
         }
+        .sheet(isPresented: $showingSignIn, content: SignInView.init)
         .onDisappear(perform: dataController.save)
-
         .alert(isPresented: $showingDeleteConfirm) {
             Alert(
                 title: Text("Delete project?"),
@@ -244,6 +223,38 @@ struct EditProjectView: View {
             } catch {
                 // playing haptics didn't work, but that's okay
             }
+        }
+    }
+
+    func uploadToCloud() {
+        if let username = username {
+            let records = project.prepareCloudRecords(owner: username)
+            let operation = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
+            operation.savePolicy = .allKeys
+
+            if #available(iOS 15.0, *) {
+                operation.modifyRecordsResultBlock = { result in
+                    switch result {
+                    case .success:
+                        return
+                    case .failure(let error):
+                        print("Error: \(error.localizedDescription)")
+                    }
+                }
+            } else {
+                operation.modifyRecordsCompletionBlock = { _, _, error in
+                    if let error = error {
+                        print("Error: \(error.localizedDescription)")
+                    }
+                }
+            }
+
+            // Use identifier when initializing Container because the
+            // bundle ID which is used by default to init container
+            // differs from iCloud container I created when making app
+            CKContainer.init(identifier: "iCloud.iam.mrnoone.portfolio").publicCloudDatabase.add(operation)
+        } else {
+            showingSignIn = true
         }
     }
 }

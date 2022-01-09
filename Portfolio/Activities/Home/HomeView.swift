@@ -48,7 +48,13 @@ struct HomeView: View {
                 }
             }
             .toolbar {
-                Button("Add Data", action: viewModel.addSampleData)
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Add Data", action: viewModel.addSampleData)
+                }
+
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Remove User", action: viewModel.removeUser)
+                }
             }
             .background(Color.systemGroupedBackground.ignoresSafeArea())
             .navigationTitle("Home")
