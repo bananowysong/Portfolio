@@ -53,6 +53,9 @@ struct EditProjectView: View {
     /// Current status of the project in cloud
     @State private var cloudStatus = CloudStatus.checking
 
+    /// Shows cloudError
+    @State private var cloudError: CloudError?
+
     var body: some View {
         Form {
             Section(content: {
@@ -76,6 +79,7 @@ struct EditProjectView: View {
                 }
                 .accentColor(.red)
             }
+            
 
             Section(content: {
                 Toggle("Show reminders", isOn: $remindMe.animation().onChange(update))
@@ -112,6 +116,12 @@ struct EditProjectView: View {
                 Button(action: uploadToCloud, label: {
                     Label("Upload to iCloud", systemImage: "icloud.and.arrow.up")
                 })
+                    .alert(item: $cloudError) { error in
+                        Alert(
+                            title: Text("There was an error"),
+                            message: Text(error.message)
+                        )
+                    }
             }
         }
         .onAppear(perform: updateCloudStatus)
@@ -125,6 +135,7 @@ struct EditProjectView: View {
                 secondaryButton: .cancel()
             )
         }
+        
     }
 
     init(project: Project) {
@@ -263,13 +274,13 @@ struct EditProjectView: View {
                         updateCloudStatus()
                         return
                     case .failure(let error):
-                        print("Error: \(error.localizedDescription)")
+                        cloudError = error.getCloudKitError()
                     }
                 }
             } else {
                 operation.modifyRecordsCompletionBlock = { _, _, error in
                     if let error = error {
-                        print("Error: \(error.localizedDescription)")
+                        cloudError = error.getCloudKitError()
                     }
                 }
                 updateCloudStatus()
@@ -304,7 +315,10 @@ struct EditProjectView: View {
         // deleting Project delets all of its items because it has .deleteSelf reference
         let operation = CKModifyRecordsOperation(recordsToSave: nil, recordIDsToDelete: [id])
 
-        operation.modifyRecordsCompletionBlock = { _, _, _ in
+        operation.modifyRecordsCompletionBlock = { _, _, error in
+            if let error = error {
+                cloudError = error.getCloudKitError()
+            }
             updateCloudStatus()
         }
 

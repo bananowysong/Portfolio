@@ -29,6 +29,9 @@ struct SharedItemsView: View {
     /// Tracks loading messages list state
     @State private var messagesLoadState = LoadState.inactive
 
+    /// Responsible for presenting alert with error
+    @State private var cloudError: CloudError?
+
     var body: some View {
         List {
             Section {
@@ -70,6 +73,12 @@ struct SharedItemsView: View {
             fetchChatMessages()
         }
         .sheet(isPresented: $showingSignIn, content: SignInView.init)
+        .alert(item: $cloudError) { error in
+            Alert(
+                title: Text("There was an error"),
+                message: Text(error.message)
+            )
+        }
     }
 
     func fetchSharedItems() {
@@ -101,7 +110,11 @@ struct SharedItemsView: View {
             itemsLoadState = .success
         }
 
-        operation.queryCompletionBlock = { _, _ in
+        operation.queryCompletionBlock = { _, error in
+            if let error = error {
+                cloudError = error.getCloudKitError()
+            }
+
             if items.isEmpty {
                 itemsLoadState = .noResults
             }
@@ -140,7 +153,7 @@ struct SharedItemsView: View {
         CKContainer.init(identifier: "iCloud.iam.mrnoone.portfolio")
             .publicCloudDatabase.save(message) { record, error in
             if let error = error {
-                print(error.localizedDescription)
+                cloudError = error.getCloudKitError()
                 newChatText = backupChatText
             } else if let record = record {
                 let message = ChatMessage(from: record)
@@ -169,7 +182,10 @@ struct SharedItemsView: View {
             messagesLoadState = .success
         }
 
-        operation.queryCompletionBlock = { _, _ in
+        operation.queryCompletionBlock = { _, error in
+            if let error = error {
+                cloudError = error.getCloudKitError()
+            }
             if messages.isEmpty {
                 messagesLoadState = .noResults
             }

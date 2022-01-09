@@ -151,6 +151,5 @@ extension Project {
             }
         }
         CKContainer.init(identifier: "iCloud.iam.mrnoone.portfolio").publicCloudDatabase.add(operation)
-        
     }
 }
